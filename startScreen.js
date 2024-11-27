@@ -4,14 +4,17 @@ function setup() {
   createCanvas(600, 800);
 }
 
+//gameScreen
 function gameScreen() {
   background(0, 0, 0);
 }
 
+//instruction screen
 function instructionsScreen() {
   background(255, 255, 255);
 }
 
+//The buttons
 class Button {
   constructor(x, y, width, height, text, callback) {
     this.buttonX = x;
@@ -38,6 +41,7 @@ class Button {
     pop();
   }
 
+  //checking if the buttons are pressed or not
   hitTest(x, y) {
     return (
       x > this.buttonX &&
@@ -54,6 +58,7 @@ class Button {
   }
 }
 
+//making the buttons switch to different screens
 const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
   state = "game";
 });
