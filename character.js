@@ -1,9 +1,6 @@
-function startScreen() {}
-
 //Character
 let x = 85;
 let y = 50;
-let enemies = [];
 
 function setup() {
   createCanvas(600, 800);
@@ -23,7 +20,7 @@ class Character {
     rect(this.characterX, this.characterY, this.width, this.height);
   }
 
-  //making character move
+  //making the character move sideways
   move() {
     if (keyIsDown(37)) {
       //move left
