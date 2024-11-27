@@ -1,15 +1,25 @@
+let state = "start";
+
 function setup() {
   createCanvas(600, 800);
-  background(255, 204, 204);
+}
+
+function gameScreen() {
+  background(0, 0, 0);
+}
+
+function instructionsScreen() {
+  background(255, 255, 255);
 }
 
 class Button {
-  constructor(x, y, width, height, text) {
+  constructor(x, y, width, height, text, callback) {
     this.buttonX = x;
     this.buttonY = y;
     this.buttonWidth = width;
     this.buttonHeight = height;
     this.buttonText = text;
+    this.callback = callback;
   }
 
   draw() {
@@ -23,16 +33,49 @@ class Button {
     noStroke();
     fill(0);
     textSize(this.buttonHeight / 2);
-    textAlign(CENTER);
-    text(this.buttonText, 0, this.buttonHeight / 4, this.buttonWidth);
+    textAlign(CENTER, CENTER);
+    text(this.buttonText, this.buttonWidth / 2, this.buttonHeight / 2);
     pop();
+  }
+
+  hitTest(x, y) {
+    return (
+      x > this.buttonX &&
+      x < this.buttonX + this.buttonWidth &&
+      y > this.buttonY &&
+      y < this.buttonY + this.buttonHeight
+    );
+  }
+
+  mouseClicked() {
+    if (this.hitTest(mouseX, mouseY)) {
+      this.callback();
+    }
   }
 }
 
-const startButton = new Button(175, 450, 250, 60, "Start the game");
-const instructionsButton = new Button(175, 550, 250, 60, "Instructions");
+const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
+  state = "game";
+});
+const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
+  state = "instructions";
+});
 
 function draw() {
-  startButton.draw();
-  instructionsButton.draw();
+  if (state === "start") {
+    background(255, 204, 204);
+    startButton.draw();
+    instructionsButton.draw();
+  } else if (state === "game") {
+    gameScreen();
+  } else if (state === "instructions") {
+    instructionsScreen();
+  }
+}
+
+function mouseClicked() {
+  if (state === "start") {
+    startButton.mouseClicked();
+    instructionsButton.mouseClicked();
+  }
 }
