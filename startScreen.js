@@ -1,3 +1,8 @@
+function setup() {
+  createCanvas(600, 800);
+  background(255, 204, 204);
+}
+
 class Button {
   constructor(x, y, width, height, text) {
     this.buttonX = x;
@@ -24,8 +29,8 @@ class Button {
   }
 }
 
-const startButton = new Button(100, 100, 250, 60, "Start the game");
-const instructionsButton = new Button(100, 200, 250, 60, "Instructions");
+const startButton = new Button(175, 450, 250, 60, "Start the game");
+const instructionsButton = new Button(175, 550, 250, 60, "Instructions");
 
 function draw() {
   startButton.draw();
