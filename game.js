@@ -5,6 +5,10 @@
     NMD24
 */
 
+function startScreen() {
+  background(229, 204, 255);
+}
+
 //Character
 let x = 85;
 let y = 50;
@@ -42,6 +46,7 @@ class Character {
     }
     this.characterX = this.characterX + this.speed;
 
+    //making the charcter stop on the sides
     if (this.characterX < 0) {
       this.characterX = 0;
     } else if (this.characterX + this.width > 600) {
