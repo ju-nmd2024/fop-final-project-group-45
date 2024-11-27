@@ -1,11 +1,9 @@
 let x = 85;
 let y = 50;
-let enemies = [];
 
 function setup() {
   createCanvas(600, 800);
   character = new Character();
-  enemies = new Enemy();
 }
 
 class Character {
@@ -35,24 +33,9 @@ class Character {
   }
 }
 
-class Enemy {
-  constructor(x, y) {
-    this.enemyX = 10;
-    this.enemyY = 10;
-    this.width = 45;
-    this.height = 80;
-  }
-
-  draw() {
-    fill(255);
-    rect(this.enemyX, this.enemyY, this.width, this.height);
-  }
-}
-
 function gameScreen() {
   character.move();
   character.draw(250, 600);
-  enemies.draw();
 }
 
 function draw() {
