@@ -5,10 +5,6 @@
     NMD24
 */
 
-function startScreen() {
-  background(229, 204, 255);
-}
-
 //Character
 let x = 85;
 let y = 50;
@@ -69,13 +65,13 @@ class Enemy {
   }
 }
 
-function gameScreen() {
-  character.move();
-  character.draw(250, 600);
-  enemies.draw();
-}
+// function gameScreen() {
+//   character.move();
+//   character.draw(250, 600);
+//   enemies.draw();
+// }
 
-function draw() {
-  background(223, 229, 255);
-  gameScreen();
-}
+// function draw() {
+//   background(223, 229, 255);
+//   gameScreen();
+// }
