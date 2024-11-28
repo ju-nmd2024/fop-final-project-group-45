@@ -65,6 +65,14 @@ function draw() {
   }
 } // help done
 
+//can we use this for speed?
+// if (frameCount % 5 === 0) {
+//   snake.update();
+// }
+// snake.draw();
+
+// counter++;
+
 // //trying to make the array reversed
 // function reverse(enemies) {
 //   let reversedArray = [];
