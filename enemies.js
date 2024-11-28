@@ -6,13 +6,14 @@ class Enemy {
   constructor(x, y, width, height) {
     this.enemyX = x;
     this.enemyY = y;
-    this.size = 40;
+    this.height = height;
+    this.width = width;
   }
 
   draw() {
     push();
     fill(0);
-    ellipse(this.enemyX, this.enemyY, this.size);
+    rect(this.enemyX, this.enemyY, this.height, this.width);
     pop();
   }
 
@@ -20,6 +21,7 @@ class Enemy {
     this.enemyX += speed;
   }
 }
+const enemy = new Enemy(250, 600, 45, 80);
 
 let enemies = [];
 let rows = 5;
