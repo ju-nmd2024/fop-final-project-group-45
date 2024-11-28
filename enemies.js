@@ -13,3 +13,10 @@ class Enemy {
     pop();
   }
 }
+
+const oneEnemy = new Enemy(250, 600, 45, 80);
+
+function draw() {
+  clear();
+  oneEnemy.draw();
+}
