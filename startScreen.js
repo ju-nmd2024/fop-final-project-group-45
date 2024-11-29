@@ -1,21 +1,17 @@
-let state = "start";
+// let state = "start";
 
-function setup() {
-  createCanvas(600, 800);
-}
+// //gameScreen
+// function gameScreen() {
+//   background(0, 0, 0);
+// }
 
-//gameScreen
-function gameScreen() {
-  background(0, 0, 0);
-}
-
-//instruction screen
-function instructionsScreen() {
-  background(255, 255, 255);
-}
+// //instruction screen
+// function instructionsScreen() {
+//   background(255, 255, 255);
+// }
 
 //The buttons
-class Button {
+export default class Button {
   constructor(x, y, width, height, text, callback) {
     this.buttonX = x;
     this.buttonY = y;
@@ -58,29 +54,29 @@ class Button {
   }
 }
 
-//making the buttons switch to different screens
-const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
-  state = "game";
-});
-const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
-  state = "instructions";
-});
+// making the buttons switch to different screens
+// const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
+// state = "game";
+// });
+// const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
+//   state = "instructions";
+// });
 
-function draw() {
-  if (state === "start") {
-    background(255, 204, 204);
-    startButton.draw();
-    instructionsButton.draw();
-  } else if (state === "game") {
-    gameScreen();
-  } else if (state === "instructions") {
-    instructionsScreen();
-  }
-}
+// function draw() {
+//   if (state === "start") {
+//     background(255, 204, 204);
+//     startButton.draw();
+//     instructionsButton.draw();
+//   } else if (state === "game") {
+//     gameScreen();
+//   } else if (state === "instructions") {
+//     instructionsScreen();
+//   }
+// }
 
-function mouseClicked() {
-  if (state === "start") {
-    startButton.mouseClicked();
-    instructionsButton.mouseClicked();
-  }
-}
+// function mouseClicked() {
+//   if (state === "start") {
+//     startButton.mouseClicked();
+//     instructionsButton.mouseClicked();
+//   }
+// }

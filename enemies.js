@@ -1,8 +1,8 @@
-function setup() {
-  createCanvas(600, 800);
-}
+// function setup() {
+//   createCanvas(600, 800);
+// }
 
-class Enemy {
+export default class Enemy {
   constructor(x, y, width, height) {
     this.enemyX = x;
     this.enemyY = y;
@@ -28,44 +28,47 @@ class Enemy {
   }
   //help stopped
 
-  // const enemy = new Enemy(10, 10, 30, 40);
+  //
 } // help done
 
-let enemies = [];
-let rows = 5;
-let columns = 8;
+// const enemy = new Enemy(10, 10, 30, 40);
 
-for (let i = 0; i < rows; i++) {
-  for (let j = 0; j < columns; j++) {
-    let x = 50 + j * 50;
-    let y = 50 + i * 50;
-    enemies.push(new Enemy(x, y, 30, 40));
-  }
-}
-function draw() {
-  background(255);
-  //help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
-  let edgeReached = false;
+// let enemies = [];
+// let rows = 5;
+// let columns = 8;
 
-  for (let enemy of enemies) {
-    enemy.draw();
-    enemy.move();
+// for (let i = 0; i < rows; i++) {
+//   for (let j = 0; j < columns; j++) {
+//     let x = 50 + j * 50;
+//     let y = 50 + i * 50;
+//     enemies.push(new Enemy(x, y, 30, 40));
+//   }
+// }
 
-    //maked that enemies have reached an edge
-    if (Enemy.enemyX <= 0 || Enemy.enemyX + Enemy.width >= 600) {
-      edgeReached = true;
-    }
-  }
+// function draw() {
+//   background(255);
+// // help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
+// let edgeReached = false;
 
-  if (edgeReached) {
-    for (let enemy of enemies) {
-      enemy.speed *= -0.5;
-      enemy.moveDown();
-    }
-  }
-}
+// for (let enemy of enemies) {
+//   enemy.draw();
+//   enemy.move();
 
-//can we use this for speed?
+//   //maked that enemies have reached an edge
+//   if (enemy.enemyX <= 0 || enemy.enemyX + enemy.width >= 600) {
+//     edgeReached = true;
+//   }
+// }
+
+// if (edgeReached) {
+//   for (let enemy of enemies) {
+//     enemy.speed *= -0.5;
+//     enemy.moveDown();
+//     }
+//   }
+// }
+
+// can we use this for speed?
 // if (frameCount % 5 === 0) {
 //   snake.update();
 // }
@@ -80,4 +83,4 @@ function draw() {
 //     reversedArray.unshift(element);
 //   }
 //   return reversedArray;
-//}
+// }

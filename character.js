@@ -1,6 +1,6 @@
 //character
 
-class Character {
+export default class Character {
   constructor(x, y, width, height) {
     this.x = x;
     this.y = y;
@@ -36,16 +36,4 @@ class Character {
       this.x = 600 - this.width;
     }
   }
-}
-
-function setup() {
-  createCanvas(600, 800);
-}
-
-const yellowCharacter = new Character(250, 600, 45, 80);
-
-function draw() {
-  clear();
-  yellowCharacter.draw();
-  yellowCharacter.move();
 }
