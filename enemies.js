@@ -22,8 +22,7 @@ class Enemy {
     this.enemyX += this.speed;
   }
 
-  //help from https://chatgpt.com/share/6748b4c9-1d70-8000-94ca-828771c018ba
-  moveDown() {
+  //help from 
     this.enemyY += 40;
   }
   //help stopped
@@ -44,7 +43,7 @@ for (let i = 0; i < rows; i++) {
 
 function draw() {
   background(255);
-  //help from https://chatgpt.com/share/6748b4c9-1d70-8000-94ca-828771c018ba
+  //help from 
   let edgeReached = false;
 
   for (let Enemy of enemies) {
