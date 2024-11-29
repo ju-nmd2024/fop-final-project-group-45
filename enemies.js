@@ -20,18 +20,6 @@ class Enemy {
 
   move() {
     this.enemyX += this.speed;
-
-    let enemies = [];
-    let rows = 5;
-    let columns = 8;
-
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < columns; j++) {
-        let x = 50 + j * 50;
-        let y = 50 + i * 50;
-        enemies.push(new Enemy(x, y, 30, 40));
-      }
-    }
   }
 
   //help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
@@ -43,14 +31,25 @@ class Enemy {
   // const enemy = new Enemy(10, 10, 30, 40);
 } // help done
 
+let enemies = [];
+let rows = 5;
+let columns = 8;
+
+for (let i = 0; i < rows; i++) {
+  for (let j = 0; j < columns; j++) {
+    let x = 50 + j * 50;
+    let y = 50 + i * 50;
+    enemies.push(new Enemy(x, y, 30, 40));
+  }
+}
 function draw() {
   background(255);
   //help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
   let edgeReached = false;
 
-  for (let nemy of enemies) {
-    Enemy.draw();
-    Enemy.move();
+  for (let enemy of enemies) {
+    enemy.draw();
+    enemy.move();
 
     //maked that enemies have reached an edge
     if (Enemy.enemyX <= 0 || Enemy.enemyX + Enemy.width >= 600) {
