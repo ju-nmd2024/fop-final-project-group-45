@@ -38,6 +38,10 @@ class Character {
   }
 }
 
+function setup() {
+  createCanvas(600, 800);
+}
+
 const yellowCharacter = new Character(250, 600, 45, 80);
 
 function draw() {
