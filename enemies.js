@@ -8,7 +8,7 @@ export default class Enemy {
     this.enemyY = y;
     this.width = width;
     this.height = height;
-    this.speed = 0.5;
+    this.speed = 1;
   }
 
   draw() {

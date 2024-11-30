@@ -27,11 +27,11 @@ function setup() {
   createCanvas(600, 800);
 }
 
-//initialize start button
+//start game button, changes to gamestate
 const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
   state = "game";
 });
-//initialize instructions button
+//instructions button, changes to instructions state
 const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
   state = "instructions";
 });
@@ -58,6 +58,25 @@ function startScreen() {
 
 function gameScreen() {
   background(30, 0, 180);
+
+  let edgeReached = false;
+
+  for (let enemy of enemies) {
+    enemy.draw();
+    enemy.move();
+
+    //maked that enemies have reached an edge
+    if (enemy.enemyX <= 0 || enemy.enemyX + enemy.width >= 600) {
+      edgeReached = true;
+    }
+  }
+
+  if (edgeReached) {
+    for (let enemy of enemies) {
+      enemy.speed *= -1;
+      enemy.moveDown();
+    }
+  }
   character.draw();
   character.move();
 
@@ -65,32 +84,6 @@ function gameScreen() {
   for (let bullet of bullets) {
     bullet.move();
     bullet.draw();
-
-    if (bullet.shot()) {
-      let bulletIndex = bullets.indexOf(bullet);
-      if (bulletIndex !== -1) {
-        bullets.splice(bulletIndex, 1);
-      }
-    }
-
-    let edgeReached = false;
-
-    for (let enemy of enemies) {
-      enemy.draw();
-      enemy.move();
-
-      //maked that enemies have reached an edge
-      if (enemy.enemyX <= 0 || enemy.enemyX + enemy.width >= 600) {
-        edgeReached = true;
-      }
-    }
-
-    if (edgeReached) {
-      for (let enemy of enemies) {
-        enemy.speed *= -0.5;
-        enemy.moveDown();
-      }
-    }
   }
 }
 
