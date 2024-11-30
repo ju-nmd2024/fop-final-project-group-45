@@ -6,6 +6,13 @@
   Hedda Petersson - pehe24kv
 */
 
+//loading the images
+function preload() {
+  jthBoyBack = loadImage("/assets/jthBoyBack.png");
+  eyBro = loadImage("/assets/eyBro.png");
+  gameBackground = loadImage("/assets/gameBackground.png");
+}
+
 let characterX = 300;
 let characterY = 700;
 let state = "start";
@@ -17,11 +24,6 @@ import Button from "./startScreen.js";
 import Character from "./character.js";
 import Bullet from "./bullet.js";
 import Enemy from "./enemies.js";
-
-function preload() {
-  img = loadImage("/assets/jthBoyBack.png");
-  img2 = loadImage("/assets/eyBro.png");
-}
 
 function setup() {
   createCanvas(600, 800);
@@ -36,7 +38,7 @@ const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
   state = "instructions";
 });
 //initialize character
-const character = new Character(characterX, characterY, 35, 45);
+const character = new Character(characterX, characterY, 60, 80);
 //initialize enemies
 const enemy = new Enemy(10, 10, 30, 40);
 for (let i = 0; i < rows; i++) {
@@ -57,7 +59,7 @@ function startScreen() {
 }
 
 function gameScreen() {
-  background(30, 0, 180);
+  image(gameBackground, 0, 0, 600, 800);
 
   let edgeReached = false;
 
@@ -105,6 +107,8 @@ function mouseClicked() {
   if (state === "start") {
     startButton.mouseClicked();
     instructionsButton.mouseClicked();
+  } else if (state === "instructions") {
+    state = "start";
   }
 }
 

@@ -1,6 +1,6 @@
 let bullets = [];
 
-class Bullet {
+export default class Bullet {
   constructor(x, y, width, height) {
     this.x = x;
     this.y = y;
@@ -16,9 +16,7 @@ class Bullet {
 
   draw() {
     push();
-    noStroke();
-    fill(0);
-    rect(this.x, this.y, this.width, this.height);
+    image(eyBro, this.x, this.y, this.width, this.height);
     pop();
   }
 
@@ -51,9 +49,9 @@ class Bullet {
 //   }
 // }
 
-function keyPressed() {
-  if (key === " ") {
-    // Code to run.
-    createBullet(300, 500);
-  }
-}
+// function keyPressed() {
+//   if (key === " ") {
+//     // Code to run.
+//     createBullet(300, 500);
+//   }
+// }

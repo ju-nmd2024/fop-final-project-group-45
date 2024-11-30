@@ -10,10 +10,7 @@ export default class Character {
 
   draw() {
     push();
-    translate(this.x, this.y);
-    noStroke();
-    fill(255, 230, 0);
-    rect(0, 0, this.width, this.height);
+    image(jthBoyBack, this.x, this.y, this.width, this.height);
     pop();
   }
 
