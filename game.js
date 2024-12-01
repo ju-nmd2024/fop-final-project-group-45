@@ -9,6 +9,7 @@
 //loading the images
 function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png");
+  jthGirlFront = loadImage("/assets/jthGirlFront.png");
   eyBro = loadImage("/assets/eyBro.png");
   gameBackground = loadImage("/assets/gameBackground.png");
 }
@@ -38,15 +39,13 @@ const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
   state = "instructions";
 });
 //initialize character
-const character = new Character(characterX, characterY, 60, 80);
-
-//create enemies
-const enemy = new Enemy(10, 10, 30, 40);
+const character = new Character(characterX, characterY, 50, 80);
+//initialize enemies
 for (let i = 0; i < rows; i++) {
   for (let j = 0; j < columns; j++) {
-    let x = 50 + j * 50;
-    let y = 50 + i * 50;
-    enemies.push(new Enemy(x, y, 30, 40));
+    let x = 0 + j * 60;
+    let y = 60 + i * 70;
+    enemies.push(new Enemy(x, y, 40, 65));
   }
 }
 

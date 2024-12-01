@@ -8,13 +8,12 @@ export default class Enemy {
     this.enemyY = y;
     this.width = width;
     this.height = height;
-    this.speed = 1;
+    this.speed = 0.5;
   }
 
   draw() {
     push();
-    fill(0);
-    rect(this.enemyX, this.enemyY, this.width, this.height);
+    image(jthGirlFront, this.enemyX, this.enemyY, this.width, this.height);
     pop();
   }
 
