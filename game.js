@@ -39,7 +39,8 @@ const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
 });
 //initialize character
 const character = new Character(characterX, characterY, 60, 80);
-//initialize enemies
+
+//create enemies
 const enemy = new Enemy(10, 10, 30, 40);
 for (let i = 0; i < rows; i++) {
   for (let j = 0; j < columns; j++) {
