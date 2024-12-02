@@ -16,6 +16,7 @@ function preload() {
   winScreen = loadImage("/assets/winScreen.png");
   lostScreen = loadImage("/assets/gameOver.png");
   instructions = loadImage("/assets/instructions.png");
+  start = loadImage("/assets/start.png");
 }
 
 let characterX = 300;
@@ -41,11 +42,11 @@ function setup() {
 }
 
 //start game button, changes to gamestate
-const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
+const startButton = new Button(175, 280, 250, 60, "Start the game", () => {
   state = "game";
 });
 //instructions button, changes to instructions state
-const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
+const instructionsButton = new Button(175, 370, 250, 60, "Instructions", () => {
   state = "instructions";
 });
 //play again button, restarts the game
@@ -69,12 +70,11 @@ for (let i = 0; i < rows; i++) {
 }
 
 function startScreen() {
-  background(234, 30, 180);
-
+  image(start, 0, 0, 600, 800);
   startButton.draw();
-  startButton.hitTest(175, 450);
+  startButton.hitTest(175, 280);
   instructionsButton.draw();
-  instructionsButton.hitTest(175, 550);
+  instructionsButton.hitTest(175, 370);
 }
 
 //Tyra Edin
