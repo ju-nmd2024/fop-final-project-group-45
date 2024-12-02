@@ -18,11 +18,13 @@ function preload() {
 let characterX = 300;
 let characterY = 700;
 let state = "start";
-let edgeReached = false; 
+let edgeReached = false;
 let enemies = [];
 let rows = 5;
 let columns = 8;
-let maxBullets = 3; 
+let maxBullets = 3;
+
+//imported files
 import Button from "./startScreen.js";
 import Character from "./character.js";
 import Bullet from "./bullet.js";
@@ -116,12 +118,10 @@ function gameScreen() {
     }
   }
 
-
-
   if (edgeReached) {
     for (let enemy of enemies) {
       enemy.speed *= -1;
-      enemy.moveDown(); 
+      enemy.moveDown();
     }
   }
 
@@ -131,11 +131,11 @@ function gameScreen() {
 
   //draw the bullets
   for (let bullet of bullets) {
-    if (bullets.y < 0) { 
+    if (bullets.y < 0) {
       bullet.splice();
     } else {
       bullet.move();
-      bullet.draw();  
+      bullet.draw();
     }
   }
 
@@ -143,8 +143,6 @@ function gameScreen() {
     state = "win";
   }
 }
-
-
 
 function instructionScreen() {
   background(90, 30, 180);
@@ -166,12 +164,12 @@ function draw() {
     startScreen();
   } else if (state === "instructions") {
     instructionScreen();
-  }  else if (state === "game") {
+  } else if (state === "game") {
     gameScreen();
-    
-      if (enemy.enemyY > 300) {
-        state = "gameOver";
-      }
+
+    if (enemy.enemyY > 300) {
+      state = "gameOver";
+    }
   } else if (state === "gameOver") {
     gameOver();
   } else if (state === "win") {
@@ -192,12 +190,13 @@ function mouseClicked() {
 }
 
 function createBullet(x, y) {
-  let bullet = new Bullet(x, y, 20, 32); 
+  let bullet = new Bullet(x, y, 20, 32);
   bullets.push(bullet);
 }
 
 function keyPressed() {
-  if (key === " " && bullets.length < maxBullets) { //checks if bullets are less than 3, the max length of array
+  if (key === " " && bullets.length < maxBullets) {
+    //checks if bullets are less than 3, the max length of array
     createBullet(character.x + 12, character.y - 15); //if less create more bullets
   }
-}   
+}
