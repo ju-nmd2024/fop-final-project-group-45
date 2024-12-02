@@ -22,7 +22,7 @@ function preload() {
 
 let characterX = 300;
 let characterY = 700;
-let state = "start";
+let state = "game";
 let edgeReached = false;
 let enemies = [];
 let rows = 5;
@@ -115,6 +115,11 @@ function gameScreen() {
     //check if enemy reached edge
     if (enemy.enemyX <= 0 || enemy.enemyX + enemy.width >= 600) {
       edgeReached = true;
+    }
+
+    //makes the enemies stop when they reach the bar
+    if (enemy.enemyY >= 500) {
+      state = "gameOver";
     }
 
     // Checking collsion between bullets and the enemies
