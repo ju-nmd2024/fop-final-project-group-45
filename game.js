@@ -22,7 +22,7 @@ function preload() {
 
 let characterX = 300;
 let characterY = 700;
-let state = "game";
+let state = "gameOver";
 let edgeReached = false;
 let enemies = [];
 let rows = 5;
@@ -177,6 +177,18 @@ function win() {
   mainMenu.draw();
 }
 
+//Re-play / restart-screen
+function rePlay() {
+  let characterX = 300;
+  let characterY = 700;
+  let state = "game";
+  let edgeReached = false;
+  let enemies = [];
+  let rows = 5;
+  let columns = 8;
+  let maxBullets = 3;
+}
+
 function draw() {
   if (state === "start") {
     startScreen();
@@ -192,6 +204,10 @@ function draw() {
     gameOver();
   } else if (state === "win") {
     win();
+  } else if (state === "rePlay") {
+    rePlay();
+  } else if (state === "rePlay") {
+    startScreen();
   }
 }
 
