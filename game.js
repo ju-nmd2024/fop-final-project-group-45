@@ -1,12 +1,13 @@
 /*
-  Final Project - Game
-    Akademien Invaders
+  Final Project - Foundations of Programming TGPG14 T4410
+    Game - Akademien Invaders
 
   Alen Eminovic - emal24na 
   Hedda Petersson - pehe24kv
+  NMD24
 */
 
-//loading the images
+//Imported Images
 function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png");
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
@@ -28,7 +29,7 @@ let rows = 5;
 let columns = 8;
 let maxBullets = 3;
 
-//imported files
+//Imported files
 //via p5js.org
 import Button from "./startScreen.js";
 import Character from "./character.js";
@@ -41,7 +42,7 @@ function setup() {
   createCanvas(600, 800);
 }
 
-//start game button, changes to gamestate
+//Buttons, changing to states
 const startButton = new Button(175, 280, 250, 60, "Start the game", () => {
   state = "game";
 });
@@ -57,7 +58,8 @@ const playAgain = new Button(175, 220, 250, 60, "Play Again", () => {
 const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
   state = "start";
 });
-//initialize character
+
+//Initialize character
 const character = new Character(characterX, characterY, 50, 80);
 //initialize enemies
 const enemy = new Enemy(10, 10, 30, 40);
@@ -69,6 +71,7 @@ for (let i = 0; i < rows; i++) {
   }
 }
 
+// Start screen
 function startScreen() {
   image(start, 0, 0, 600, 800);
   startButton.draw();
@@ -97,6 +100,7 @@ function collisionCharacter(character, bullet) {
 }
 //Tyra end
 
+//Game screen
 function gameScreen() {
   image(gameBackground, 0, 0, 600, 800);
 
@@ -113,7 +117,7 @@ function gameScreen() {
       edgeReached = true;
     }
 
-    //checking collsion between bullets and the enemies
+    // Checking collsion between bullets and the enemies
     for (let j = bullets.length - 1; j >= 0; j--) {
       let bullet = bullets[j];
       if (collisionEnemy(enemy, bullet)) {
@@ -130,11 +134,11 @@ function gameScreen() {
     }
   }
 
-  //draw the character and make it move
+  // Draw the character and make it move
   character.draw();
   character.move();
 
-  //draw the bullets
+  // Draw the bullets
   for (let bullet of bullets) {
     if (bullets.y < 0) {
       bullet.splice();
@@ -149,16 +153,19 @@ function gameScreen() {
   }
 }
 
+//Instruction screen
 function instructionScreen() {
   image(instructions, -20, 0, 634, 820);
 }
 
+//Game over screen
 function gameOver() {
   image(lostScreen, 0, 0, 600, 800);
   playAgain.draw();
   mainMenu.draw();
 }
 
+//Win screen
 function win() {
   image(winScreen, 0, 0, 600, 800);
   playAgain.draw();
