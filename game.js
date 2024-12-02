@@ -13,6 +13,9 @@ function preload() {
   eyBro = loadImage("/assets/eyBro.png");
   freeze = loadImage("/assets/freeze.png");
   gameBackground = loadImage("/assets/gameBackground.png");
+  winScreen = loadImage("/assets/winScreen.png");
+  lostScreen = loadImage("/assets/gameOver.png");
+  instructions = loadImage("/assets/instructions.png");
 }
 
 let characterX = 300;
@@ -25,11 +28,13 @@ let columns = 8;
 let maxBullets = 3;
 
 //imported files
+//via p5js.org
 import Button from "./startScreen.js";
 import Character from "./character.js";
 import Bullet from "./bullet.js";
 import BulletEnemy from "./bulletEnemy.js";
 import Enemy from "./enemies.js";
+//help ended
 
 function setup() {
   createCanvas(600, 800);
@@ -44,12 +49,12 @@ const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
   state = "instructions";
 });
 //play again button, restarts the game
-const playAgain = new Button(175, 459, 250, 60, "Play Again", () => {
+const playAgain = new Button(175, 220, 250, 60, "Play Again", () => {
   state = "game";
 });
 //menu button
-const mainMenu = new Button(175, 550, 250, 60, "Main Menu", () => {
-  state = "game";
+const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
+  state = "start";
 });
 //initialize character
 const character = new Character(characterX, characterY, 50, 80);
@@ -145,16 +150,17 @@ function gameScreen() {
 }
 
 function instructionScreen() {
-  background(90, 30, 180);
+  image(instructions, -20, 0, 634, 820);
 }
 
 function gameOver() {
-  background(0);
+  image(lostScreen, 0, 0, 600, 800);
   playAgain.draw();
+  mainMenu.draw();
 }
 
 function win() {
-  background(255);
+  image(winScreen, 0, 0, 600, 800);
   playAgain.draw();
   mainMenu.draw();
 }
@@ -184,6 +190,9 @@ function mouseClicked() {
   } else if (state === "instructions") {
     state = "start";
   } else if (state === "win") {
+    playAgain.mouseClicked();
+    mainMenu.mouseClicked();
+  } else if (state === "gameOver") {
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
   }
