@@ -21,7 +21,7 @@ function preload() {
   instructions = loadImage("/assets/instructions.png");
   start = loadImage("/assets/start.png");
 }
-//help ended
+//help from p5 ended
 
 //Imported files
 import Button from "./startScreen.js";
@@ -37,6 +37,7 @@ let enemies = [];
 let rows = 5;
 let columns = 8;
 let maxBullets = 3;
+let score = 0;
 
 function setup() {
   createCanvas(600, 800);
@@ -130,13 +131,18 @@ function gameScreen() {
     for (let j = 0; j < bullets.length; j++) {
       let bullet = bullets[j];
       if (collisionEnemy(enemy, bullet)) {
+        //Help from student Erik Sandquist ended
+
         bullets.splice(j, 1); //splice removes bullet
         enemies.splice(i, 1); //splice removes the enemy
+        score = score + 10;
+
+        //Help from second year NMD student Erik Sandquist
         i--;
         break;
+        //Help from student Erik Sandquist ended
       }
     }
-    //Help from student Erik Sandquist ended
   }
 
   if (edgeReached) {
@@ -163,6 +169,14 @@ function gameScreen() {
   if (enemies.length === 0) {
     state = "win";
   }
+
+  push();
+  textSize(20);
+  fill(255);
+  //Help from second year NMD student Erik Sandquist
+  text(`SCORE: ${score}`, 25, 35);
+  //End of help from Erik Sandquist
+  pop();
 }
 
 //Instruction screen
@@ -184,12 +198,17 @@ function win() {
   mainMenu.draw();
 }
 
+function resetGame() {
+  let score = 0;
+}
+
 function draw() {
   if (state === "start") {
     startScreen();
   } else if (state === "instructions") {
     instructionScreen();
   } else if (state === "game") {
+    resetGame();
     gameScreen();
   } else if (state === "gameOver") {
     gameOver();
