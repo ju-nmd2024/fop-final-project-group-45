@@ -80,7 +80,7 @@ function startScreen() {
   instructionsButton.hitTest(175, 370);
 }
 
-//Tyra Edin
+//Help from first year NMD student Tyra Edin, Accessed: 2024-11-30
 function collisionEnemy(enemy, bullet) {
   return (
     bullet.x < enemy.enemyX + enemy.width &&
@@ -98,7 +98,7 @@ function collisionCharacter(character, bulletEnemy) {
     bulletEnemy.y + bulletEnemy.height > character.y
   );
 }
-//Tyra end
+//Help from student, ended.
 
 //Game screen
 function gameScreen() {
