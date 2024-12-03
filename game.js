@@ -8,6 +8,7 @@
 */
 
 //Imported Images
+//Help through https://p5js.org/reference/p5/loadImage/ Accessed: 2024-11-30
 function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png");
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
@@ -19,10 +20,11 @@ function preload() {
   instructions = loadImage("/assets/instructions.png");
   start = loadImage("/assets/start.png");
 }
+//help ended
 
 let characterX = 300;
 let characterY = 700;
-let state = "gameOver";
+let state = "game";
 let edgeReached = false;
 let enemies = [];
 let rows = 5;
@@ -30,13 +32,11 @@ let columns = 8;
 let maxBullets = 3;
 
 //Imported files
-//via p5js.org
 import Button from "./startScreen.js";
 import Character from "./character.js";
 import Bullet from "./bullet.js";
 import BulletEnemy from "./bulletEnemy.js";
 import Enemy from "./enemies.js";
-//help ended
 
 function setup() {
   createCanvas(600, 800);
@@ -90,7 +90,7 @@ function collisionEnemy(enemy, bullet) {
   );
 }
 
-function collisionCharacter(character, bullet) {
+function collisionCharacter(character, bulletEnemy) {
   return (
     bulletEnemy.x < character.x + character.width &&
     bulletEnemy.x + bulletEnemy.width > character.x &&
@@ -118,7 +118,7 @@ function gameScreen() {
     }
 
     //makes the enemies stop when they reach the bar
-    if (enemy.enemyY >= 500) {
+    if (enemy.enemyY >= 550) {
       state = "gameOver";
     }
 
@@ -131,6 +131,10 @@ function gameScreen() {
       }
     }
   }
+  // making the bullet disapear if you miss
+  // if (bullet[j].y > 0) {
+  //   bullets.splice(j, 1);
+  // }
 
   if (edgeReached) {
     for (let enemy of enemies) {
@@ -196,10 +200,6 @@ function draw() {
     instructionScreen();
   } else if (state === "game") {
     gameScreen();
-
-    if (enemy.enemyY > 300) {
-      state = "gameOver";
-    }
   } else if (state === "gameOver") {
     gameOver();
   } else if (state === "win") {
