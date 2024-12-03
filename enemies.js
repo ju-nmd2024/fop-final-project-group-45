@@ -26,9 +26,7 @@ export default class Enemy {
     this.enemyY += 40;
   }
   //help stopped
-
-  //
-} // help done
+}
 
 // const enemy = new Enemy(10, 10, 30, 40);
 
@@ -46,7 +44,6 @@ export default class Enemy {
 
 // function draw() {
 //   background(255);
-// // help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
 // let edgeReached = false;
 
 // for (let enemy of enemies) {
@@ -58,28 +55,11 @@ export default class Enemy {
 //     edgeReached = true;
 //   }
 // }
-
+// help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
 // if (edgeReached) {
 //   for (let enemy of enemies) {
 //     enemy.speed *= -0.5;
 //     enemy.moveDown();
-//     }
+//     } //help ended
 //   }
-// }
-
-// can we use this for speed?
-// if (frameCount % 5 === 0) {
-//   snake.update();
-// }
-// snake.draw();
-
-// counter++;
-
-// //trying to make the array reversed
-// function reverse(enemies) {
-//   let reversedArray = [];
-//   for (let element of array) {
-//     reversedArray.unshift(element);
-//   }
-//   return reversedArray;
 // }
