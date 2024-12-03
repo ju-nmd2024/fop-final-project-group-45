@@ -31,11 +31,12 @@ import Enemy from "./enemies.js";
 
 let characterX = 300;
 let characterY = 700;
-let state = "start";
+let state = "game";
 let enemies = [];
 let rows = 5;
 let columns = 8;
 let maxBullets = 3;
+let score = 0;
 
 function setup() {
   createCanvas(600, 800);
@@ -129,13 +130,18 @@ function gameScreen() {
     for (let j = 0; j < bullets.length; j++) {
       let bullet = bullets[j];
       if (collisionEnemy(enemy, bullet)) {
+        //Help from student Erik Sandquist ended
+
         bullets.splice(j, 1); //splice removes bullet
         enemies.splice(i, 1); //splice removes the enemy
+        score = score + 10;
+
+        //Help from second year NMD student Erik Sandquist
         i--;
         break;
+        //Help from student Erik Sandquist ended
       }
     }
-    //Help from student Erik Sandquist ended
   }
 
   if (edgeReached) {
@@ -162,6 +168,14 @@ function gameScreen() {
   if (enemies.length === 0) {
     state = "win";
   }
+
+  push();
+  textSize(20);
+  fill(255);
+  //Help from second year NMD student Erik Sandquist
+  text(`SCORE: ${score}`, 25, 35);
+  //End of help from Erik Sandquist
+  pop();
 }
 
 //Instruction screen
