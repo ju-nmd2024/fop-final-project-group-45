@@ -31,8 +31,7 @@ function preload() {
 
 let characterX = 300;
 let characterY = 700;
-let state = "game";
-let edgeReached = false;
+let state = "start";
 let enemies = [];
 let rows = 5;
 let columns = 8;
@@ -112,7 +111,7 @@ function gameScreen() {
     enemy.draw();
     enemy.move();
 
-    //check if enemy reached edge
+    //check if enemy reached edge of canvas
     if (enemy.enemyX <= 0 || enemy.enemyX + enemy.width >= 600) {
       edgeReached = true;
     }
@@ -213,14 +212,16 @@ function draw() {
 
 function mouseClicked() {
   if (state === "start") {
-    startButton.mouseClicked();
+    startButton.mouseClicked(); // added buttons on start screen
     instructionsButton.mouseClicked();
   } else if (state === "instructions") {
     state = "start";
   } else if (state === "win") {
+    //added buttons on win screen
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
   } else if (state === "gameOver") {
+    //added buttons on gameover screen
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
   }

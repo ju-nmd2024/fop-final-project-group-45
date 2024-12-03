@@ -27,7 +27,6 @@ export default class Enemy {
   }
   //help stopped
 }
-
 // const enemy = new Enemy(10, 10, 30, 40);
 
 // let enemies = [];
