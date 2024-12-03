@@ -13,7 +13,6 @@ function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png");
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
   eyBro = loadImage("/assets/eyBro.png");
-  redBull = loadImage("/assets/redBull.png");
   freeze = loadImage("/assets/freeze.png");
   gameBackground = loadImage("/assets/gameBackground.png");
   winScreen = loadImage("/assets/winScreen.png");
@@ -27,13 +26,16 @@ function preload() {
 import Button from "./startScreen.js";
 import Character from "./character.js";
 import Bullet from "./bullet.js";
-import BulletEnemy from "./bulletEnemy.js";
+import EnemyBullet from "./bulletEnemy.js";
 import Enemy from "./enemies.js";
 
 let characterX = 300;
 let characterY = 700;
+let enemyX = 10;
+let enemyY = 10;
 let state = "start";
 let enemies = [];
+let enemyBullets = [];
 let rows = 5;
 let columns = 8;
 let maxBullets = 3;
@@ -93,12 +95,12 @@ function collisionEnemy(enemy, bullet) {
   );
 }
 
-function collisionCharacter(character, bulletEnemy) {
+function collisionCharacter(character, enemyBullet) {
   return (
-    bulletEnemy.x < character.x + character.width &&
-    bulletEnemy.x + bulletEnemy.width > character.x &&
-    bulletEnemy.y < character.y + character.height &&
-    bulletEnemy.y + bulletEnemy.height > character.y
+    enemyBullet.x < character.x + character.width &&
+    enemyBullet.x + enemyBullet.width > character.x &&
+    enemyBullet.y < character.y + character.height &&
+    enemyBullet.y + enemyBullet.height > character.y
   );
 }
 //Help from student, ended.
@@ -145,6 +147,21 @@ function gameScreen() {
     }
   }
 
+  for (let j = 0; j < enemyBullets.length; j++) {
+    let enemyBullet = enemyBullets[j];
+    if (collisionCharacter(character, enemyBullet)) {
+      //Help from student Erik Sandquist ended
+
+      enemyBullet.splice(j, 1); //splice removes bullet
+      character.splice(i, 1); //splice removes the enemy
+
+      //Help from second year NMD student Erik Sandquist
+      i--;
+      break;
+      //Help from student Erik Sandquist ended
+    }
+  }
+
   if (edgeReached) {
     for (let enemy of enemies) {
       enemy.speed *= -1;
@@ -158,7 +175,7 @@ function gameScreen() {
 
   // Draw the bullets
   for (let bullet of bullets) {
-    if (bullets.y < 0) {
+    if (bullets.y <= 0) {
       bullet.splice();
     } else {
       bullet.move();
@@ -166,10 +183,20 @@ function gameScreen() {
     }
   }
 
+  // Draw the enemyBullets
+  for (let enemyBullet of enemyBullets) {
+    if (enemyBullets.y <= 800) {
+      enemyBullet.splice();
+    } else {
+      enemyBullet.move();
+      enemyBullet.draw();
+    }
+  }
+
   if (enemies.length === 0) {
     state = "win";
   }
-
+  //Scores
   push();
   textSize(20);
   fill(255);
@@ -198,9 +225,11 @@ function win() {
   mainMenu.draw();
 }
 
-function resetGame() {
-  let score = 0;
-}
+// function resetGame() {
+//   let score = 0;
+//   enemyX = 10;
+//   enemyY = 10;
+// }
 
 function draw() {
   if (state === "start") {
@@ -208,7 +237,6 @@ function draw() {
   } else if (state === "instructions") {
     instructionScreen();
   } else if (state === "game") {
-    resetGame();
     gameScreen();
   } else if (state === "gameOver") {
     gameOver();
@@ -227,16 +255,23 @@ function mouseClicked() {
     //added buttons on win screen
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
+    // resetGame();
   } else if (state === "gameOver") {
     //added buttons on gameover screen
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
+    // resetGame();
   }
 }
 
 function createBullet(x, y) {
   let bullet = new Bullet(x, y, 20, 32);
   bullets.push(bullet);
+}
+
+function createEnemyBullet(x, y) {
+  let enemyBullet = new EnemyBullet(enemy.width / 2, enemy.height, 20, 32);
+  enemyBullets.push(enemyBullet);
 }
 
 function keyPressed() {
