@@ -7,13 +7,6 @@
   NMD24
 */
 
-//Imported files
-import Button from "./startScreen.js";
-import Character from "./character.js";
-import Bullet from "./bullet.js";
-import BulletEnemy from "./bulletEnemy.js";
-import Enemy from "./enemies.js";
-
 //Imported Images
 //Help through https://p5js.org/reference/p5/loadImage/ Accessed: 2024-11-30
 function preload() {
@@ -28,6 +21,13 @@ function preload() {
   start = loadImage("/assets/start.png");
 }
 //help ended
+
+//Imported files
+import Button from "./startScreen.js";
+import Character from "./character.js";
+import Bullet from "./bullet.js";
+import BulletEnemy from "./bulletEnemy.js";
+import Enemy from "./enemies.js";
 
 let characterX = 300;
 let characterY = 700;
