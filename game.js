@@ -13,6 +13,7 @@ function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png");
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
   eyBro = loadImage("/assets/eyBro.png");
+  redBull = loadImage("/assets/redBull.png");
   freeze = loadImage("/assets/freeze.png");
   gameBackground = loadImage("/assets/gameBackground.png");
   winScreen = loadImage("/assets/winScreen.png");
