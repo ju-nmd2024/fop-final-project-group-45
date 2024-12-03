@@ -20,7 +20,7 @@ function preload() {
   instructions = loadImage("/assets/instructions.png");
   start = loadImage("/assets/start.png");
 }
-//help ended
+//help from p5 ended
 
 //Imported files
 import Button from "./startScreen.js";
@@ -31,7 +31,7 @@ import Enemy from "./enemies.js";
 
 let characterX = 300;
 let characterY = 700;
-let state = "game";
+let state = "start";
 let enemies = [];
 let rows = 5;
 let columns = 8;
@@ -197,12 +197,17 @@ function win() {
   mainMenu.draw();
 }
 
+function resetGame() {
+  let score = 0;
+}
+
 function draw() {
   if (state === "start") {
     startScreen();
   } else if (state === "instructions") {
     instructionScreen();
   } else if (state === "game") {
+    resetGame();
     gameScreen();
   } else if (state === "gameOver") {
     gameOver();
