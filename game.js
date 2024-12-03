@@ -79,6 +79,7 @@ function startScreen() {
   instructionsButton.hitTest(175, 370);
 }
 
+//Showing when an enemy will dissapear
 //Help from first year NMD student Tyra Edin, Accessed: 2024-11-30
 function collisionEnemy(enemy, bullet) {
   return (
@@ -130,10 +131,6 @@ function gameScreen() {
       }
     }
   }
-  // making the bullet disapear if you miss
-  // if (bullet[j].y > 0) {
-  //   bullets.splice(j, 1);
-  // }
 
   if (edgeReached) {
     for (let enemy of enemies) {
@@ -180,18 +177,6 @@ function win() {
   mainMenu.draw();
 }
 
-//Re-play / restart-screen
-function rePlay() {
-  let characterX = 300;
-  let characterY = 700;
-  let state = "game";
-  let edgeReached = false;
-  let enemies = [];
-  let rows = 5;
-  let columns = 8;
-  let maxBullets = 3;
-}
-
 function draw() {
   if (state === "start") {
     startScreen();
@@ -203,10 +188,6 @@ function draw() {
     gameOver();
   } else if (state === "win") {
     win();
-  } else if (state === "rePlay") {
-    rePlay();
-  } else if (state === "rePlay") {
-    startScreen();
   }
 }
 
