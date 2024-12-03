@@ -39,6 +39,7 @@ let maxBullets = 3;
 
 function setup() {
   createCanvas(600, 800);
+  let bullets = [];
 }
 
 //Start button, changes to game Screen
@@ -80,7 +81,7 @@ function startScreen() {
 }
 
 //Showing when an enemy will dissapear
-//Help from first year NMD student Tyra Edin, Accessed: 2024-11-30
+//Help from first year NMD student Tyra Edin
 function collisionEnemy(enemy, bullet) {
   return (
     bullet.x < enemy.enemyX + enemy.width &&
@@ -109,6 +110,7 @@ function gameScreen() {
   // Loop through enemies and move them
   for (let i = 0; i < enemies.length; i++) {
     let enemy = enemies[i];
+
     enemy.draw();
     enemy.move();
 
@@ -122,14 +124,18 @@ function gameScreen() {
       state = "gameOver";
     }
 
+    //Help from second year NMD student Erik Sandquist
     // Checking collsion between bullets and the enemies
-    for (let j = bullets.length - 1; j >= 0; j--) {
+    for (let j = 0; j < bullets.length; j++) {
       let bullet = bullets[j];
       if (collisionEnemy(enemy, bullet)) {
         bullets.splice(j, 1); //splice removes bullet
-        enemies.splice(i, 1); //slice removes the enemy
+        enemies.splice(i, 1); //splice removes the enemy
+        i--;
+        break;
       }
     }
+    //Help from student Erik Sandquist ended
   }
 
   if (edgeReached) {
