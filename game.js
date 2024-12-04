@@ -13,12 +13,15 @@ function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png");
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
   eyBro = loadImage("/assets/eyBro.png");
+  redBullImage = loadImage("/assets/redBullImage.png");
   freeze = loadImage("/assets/freeze.png");
   gameBackground = loadImage("/assets/gameBackground.png");
   winScreen = loadImage("/assets/winScreen.png");
-  lostScreen = loadImage("/assets/gameOver.png");
-  instructions = loadImage("/assets/instructions.png");
+  lostScreen = loadImage("/assets/gameOver.png"); 
   start = loadImage("/assets/start.png");
+  howTo = loadImage("/assets/howTo.png");
+  akademien = loadImage("/assets/akademien.png");
+  overlayImage = loadImage("/assets/overlay.png");
 }
 //help from p5 ended
 
@@ -28,31 +31,34 @@ import Character from "./character.js";
 import Bullet from "./bullet.js";
 import EnemyBullet from "./bulletEnemy.js";
 import Enemy from "./enemies.js";
+import RedBull from "./redBull.js";
 
 let characterX = 300;
 let characterY = 700;
+let overlayX = 0;
+let overlayY = 0;
+let overlaySpeed = 1;
 let enemyX = 10;
 let enemyY = 10;
 let state = "start";
 let enemies = [];
 let enemyBullets = [];
+let redBulls = [];
 let rows = 5;
 let columns = 8;
 let maxBullets = 3;
 let score = 0;
+let lives = 3;
 
 function setup() {
   createCanvas(600, 800);
   let bullets = [];
+  
 }
 
 //Start button, changes to game Screen
-const startButton = new Button(175, 280, 250, 60, "Start the game", () => {
-  state = "game";
-});
-//instructions button, changes to instructions state
-const instructionsButton = new Button(175, 370, 250, 60, "Instructions", () => {
-  state = "instructions";
+const startButton = new Button(175, 300, 250, 60, "Start the game", () => {
+  state = "markus";
 });
 //play again button, restarts the game
 const playAgain = new Button(175, 220, 250, 60, "Play Again", () => {
@@ -65,6 +71,13 @@ const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
 
 //Initialize character
 const character = new Character(characterX, characterY, 50, 80);
+
+const redBull = new RedBull(100, 100, 50, 80);
+
+
+
+
+
 
 //initialize enemies
 //help from previous programmer Edvin Eminovic
@@ -82,15 +95,39 @@ for (let i = 0; i < rows; i++) {
 function startScreen() {
   image(start, 0, 0, 600, 800);
   startButton.draw();
-  startButton.hitTest(175, 280);
-  instructionsButton.draw();
-  instructionsButton.hitTest(175, 370);
+  startButton.hitTest(175, 300);
 }
+
+function instructions1() {
+  //Markus dônk
+  background(255);
+}
+
+function instructions2() {
+  //akademien outside
+  image(akademien, -2, -80, 600, 900); 
+}
+
+function instructions3() { 
+  //guide
+  image(howTo, 0, 0, 605, 810);
+}
+
+function overlay() {
+  image(overlayImage, overlayX - 100, overlayY - 100, 900, 1200);
+  overlayX = overlayX + overlaySpeed;
+  if (overlayX > 0) {
+    overlaySpeed = overlaySpeed * -1; 
+  } else if (overlayX < -100) {
+    overlaySpeed = overlaySpeed * -1;
+  }
+}
+
 
 //Showing when an enemy will dissapear
 //Help from first year NMD student Tyra Edin
 function collisionEnemy(enemy, bullet) {
-  return (
+  return ( 
     bullet.x < enemy.enemyX + enemy.width &&
     bullet.x + bullet.width > enemy.enemyX &&
     bullet.y < enemy.enemyY + enemy.height &&
@@ -156,6 +193,7 @@ function gameScreen() {
       //Help from student Erik Sandquist ended
 
       enemyBullets.splice(j, 1); //splice removes bullet
+      lives = lives - 1;
       // character.splice(i, 1); //splice removes the character
 
       //Help from second year NMD student Erik Sandquist
@@ -189,7 +227,7 @@ function gameScreen() {
   //Used ChatGPT to fix the issues in our code
   for (let i = 0; i < enemyBullets.length; i++) {
     let enemyBullet = enemyBullets[i];
-    if (enemyBullet.y >= 800) {
+    if (enemyBullet.y >= 800) { 
       enemyBullets.splice(i, 1);
       i--;
     } else {
@@ -197,7 +235,7 @@ function gameScreen() {
       enemyBullet.draw();
     }
   }
-  if (Math.random() < 0.01) {
+  if (Math.random() < 0.02) {
     let randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     createEnemyBullet(
       randomEnemy.enemyX + randomEnemy.width / 2,
@@ -205,6 +243,13 @@ function gameScreen() {
     );
   }
   //End of citation
+
+  overlay();
+
+  
+  if (lives === 0) {
+    state = "gameOver";
+  }
 
   if (enemies.length === 0) {
     state = "win";
@@ -248,22 +293,29 @@ function win() {
   pop();
 }
 
-// function resetGame() {
-//   let score = 0;
-//   enemyX = 10;
-//   enemyY = 10;
-// }
+function resetGame() {
+  let score = 0;
+  enemyX = 10;
+  enemyY = 10; 
+}
 
 function draw() {
   if (state === "start") {
     startScreen();
-  } else if (state === "instructions") {
-    instructionScreen();
+  } else if (state === "markus") {
+      instructions1();
+  } else if (state === "akademienScreen") {
+      instructions2();
+  } else if (state === "howTo") {
+    instructions3();
   } else if (state === "game") {
+    resetGame();
     gameScreen();
   } else if (state === "gameOver") {
+    resetGame(); 
     gameOver();
   } else if (state === "win") {
+    resetGame();
     win();
   }
 }
@@ -271,19 +323,20 @@ function draw() {
 function mouseClicked() {
   if (state === "start") {
     startButton.mouseClicked(); // added buttons on start screen
-    instructionsButton.mouseClicked();
-  } else if (state === "instructions") {
-    state = "start";
+  } else if (state === "markus") {
+    state = "akademienScreen";
+  } else if (state === "akademienScreen") {
+    state = "howTo";
+  } else if (state === "howTo") {
+      state = "game";
   } else if (state === "win") {
     //added buttons on win screen
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
-    // resetGame();
   } else if (state === "gameOver") {
     //added buttons on gameover screen
     playAgain.mouseClicked();
     mainMenu.mouseClicked();
-    // resetGame();
   }
 }
 
@@ -295,7 +348,7 @@ function createBullet(x, y) {
 //Generated via https://chatgpt.com/share/675038de-6e2c-8000-84d7-5465e33bc7e5 Accessed: 2024-12-04
 //Used ChatGPT to fix the issues in our code, added the suggested parameters
 function createEnemyBullet(x, y) {
-  let enemyBullet = new EnemyBullet(x, y, 20, 32);
+  let enemyBullet = new EnemyBullet(x, y, 25, 20);
   enemyBullets.push(enemyBullet);
 }
 //End of citation
