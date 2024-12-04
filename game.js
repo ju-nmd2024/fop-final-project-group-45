@@ -33,7 +33,7 @@ let characterX = 300;
 let characterY = 700;
 let enemyX = 10;
 let enemyY = 10;
-let state = "start";
+let state = "win";
 let enemies = [];
 let enemyBullets = [];
 let rows = 5;
@@ -216,6 +216,11 @@ function gameOver() {
   image(lostScreen, 0, 0, 600, 800);
   playAgain.draw();
   mainMenu.draw();
+  push();
+  textSize(25);
+  fill(255);
+  text(`SCORE: ${score}`, 240, 55);
+  pop();
 }
 
 //Win screen
@@ -223,6 +228,11 @@ function win() {
   image(winScreen, 0, 0, 600, 800);
   playAgain.draw();
   mainMenu.draw();
+  push();
+  textSize(25);
+  fill(255);
+  text(`SCORE: ${score}`, 240, 55);
+  pop();
 }
 
 // function resetGame() {
