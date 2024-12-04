@@ -33,7 +33,7 @@ let characterX = 300;
 let characterY = 700;
 let enemyX = 10;
 let enemyY = 10;
-let state = "win";
+let state = "start";
 let enemies = [];
 let enemyBullets = [];
 let rows = 5;
@@ -65,7 +65,9 @@ const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
 
 //Initialize character
 const character = new Character(characterX, characterY, 50, 80);
+
 //initialize enemies
+//help from previous programmer Edvin Eminovic
 const enemy = new Enemy(10, 10, 30, 40);
 for (let i = 0; i < rows; i++) {
   for (let j = 0; j < columns; j++) {
@@ -74,6 +76,7 @@ for (let i = 0; i < rows; i++) {
     enemies.push(new Enemy(x, y, 40, 65));
   }
 }
+//Help from Edvin Eminovic ended
 
 // Start screen
 function startScreen() {
@@ -111,7 +114,7 @@ function gameScreen() {
 
   let edgeReached = false;
 
-  // Loop through enemies and move them
+  //Loop through enemies and move them
   for (let i = 0; i < enemies.length; i++) {
     let enemy = enemies[i];
 
@@ -141,7 +144,7 @@ function gameScreen() {
 
         //Help from second year NMD student Erik Sandquist
         i--;
-        break;
+        break; //make the enemies not glitch
         //Help from student Erik Sandquist ended
       }
     }
@@ -152,13 +155,13 @@ function gameScreen() {
     if (collisionCharacter(character, enemyBullet)) {
       //Help from student Erik Sandquist ended
 
-      enemyBullet.splice(j, 1); //splice removes bullet
-      character.splice(i, 1); //splice removes the enemy
+      enemyBullets.splice(j, 1); //splice removes bullet
+      // character.splice(i, 1); //splice removes the character
 
       //Help from second year NMD student Erik Sandquist
-      i--;
-      break;
-      //Help from student Erik Sandquist ended
+      // i--; //make the enemies not glitch
+      // break;
+      // //Help from student Erik Sandquist ended
     }
   }
 
@@ -182,16 +185,26 @@ function gameScreen() {
       bullet.draw();
     }
   }
-
-  // Draw the enemyBullets
-  for (let enemyBullet of enemyBullets) {
-    if (enemyBullets.y <= 800) {
-      enemyBullet.splice();
+  //Generated via https://chatgpt.com/share/675038de-6e2c-8000-84d7-5465e33bc7e5 Accessed: 2024-12-04
+  //Used ChatGPT to fix the issues in our code
+  for (let i = 0; i < enemyBullets.length; i++) {
+    let enemyBullet = enemyBullets[i];
+    if (enemyBullet.y >= 800) {
+      enemyBullets.splice(i, 1);
+      i--;
     } else {
       enemyBullet.move();
       enemyBullet.draw();
     }
   }
+  if (Math.random() < 0.01) {
+    let randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    createEnemyBullet(
+      randomEnemy.enemyX + randomEnemy.width / 2,
+      randomEnemy.enemyY + randomEnemy.height
+    );
+  }
+  //End of citation
 
   if (enemies.length === 0) {
     state = "win";
@@ -279,10 +292,13 @@ function createBullet(x, y) {
   bullets.push(bullet);
 }
 
+//Generated via https://chatgpt.com/share/675038de-6e2c-8000-84d7-5465e33bc7e5 Accessed: 2024-12-04
+//Used ChatGPT to fix the issues in our code, added the suggested parameters
 function createEnemyBullet(x, y) {
-  let enemyBullet = new EnemyBullet(enemy.width / 2, enemy.height, 20, 32);
+  let enemyBullet = new EnemyBullet(x, y, 20, 32);
   enemyBullets.push(enemyBullet);
 }
+//End of citation
 
 function keyPressed() {
   if (key === " " && bullets.length < maxBullets) {
