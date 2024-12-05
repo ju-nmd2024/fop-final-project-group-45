@@ -2,19 +2,21 @@
 //   createCanvas(600, 800);
 // }
 
+
 export default class Enemy {
-  constructor(x, y, width, height, image) {
+  constructor(x, y, width, height) {
     this.enemyX = x;
     this.enemyY = y;
     this.width = width;
     this.height = height;
-    this.speed = 0.5;
-    this.image = image;
+    this.downStep = 65;
+    this.speed = 1;
+    // this.image = image;
   }
 
   draw() {
     push();
-    image(this.image, this.enemyX, this.enemyY, this.width, this.height);
+    image(jibsBoyFront, this.enemyX, this.enemyY, this.width, this.height);
     pop();
   }
 
@@ -22,11 +24,10 @@ export default class Enemy {
     this.enemyX += this.speed;
   }
 
-  //help from https://chatgpt.com/share/6748c9dc-037c-8000-a2b5-490cf0a04f03
   moveDown() {
-    this.enemyY += 40;
+    this.enemyY += this.downStep;
+    this.speed *= -1;
   }
-  //help stopped
 }
 // const enemy = new Enemy(10, 10, 30, 40);
 

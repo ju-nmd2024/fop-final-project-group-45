@@ -7,28 +7,6 @@
   NMD24
 */
 
-//Imported Images 
-//
-//Help through https://p5js.org/reference/p5/loadImage/ Accessed: 2024-11-30
-function preload() {
-  jthBoyBack = loadImage("/assets/jthBoyBack.png"); 
-  hlkBoyFront = loadImage("/assets/hlkBoyFront.png");
-  jibsBoyFront = loadImage("/assets/jibsBoyFront.png");
-  jthGirlFront = loadImage("/assets/jthGirlFront.png");
-  eyBro = loadImage("/assets/eyBro.png");
-  redBullImage = loadImage("/assets/redBullImage.png");
-  freeze = loadImage("/assets/freeze.png");
-  gameBackground = loadImage("/assets/gameBackground.png");
-  winScreen = loadImage("/assets/winScreen.png");
-  lostScreen = loadImage("/assets/gameOver.png"); 
-  startImage = loadImage("/assets/startImage.png");
-  howTo = loadImage("/assets/howTo.png");
-  akademien = loadImage("/assets/akademien.png");
-  overlayImage = loadImage("/assets/overlay.png");
-}
-window.preload = preload;
-//help from p5 ended
-
 //Imported files
 //
 import Button from "./startScreen.js";
@@ -36,7 +14,50 @@ import Character from "./character.js";
 import Bullet from "./bullet.js";
 import EnemyBullet from "./bulletEnemy.js";
 import Enemy from "./enemies.js";
-import RedBull from "./redBull.js";
+
+
+
+let jthBoyBack;
+let hlkBoyFront;
+let jibsBoyFront;
+let jthGirlFront; 
+let eyBro;
+let freeze;
+let gameBackground;
+let winScreen;
+let lostScreen;
+let startImage;
+let howTo;
+let akademien;
+let nmdFadders; 
+let overlayImage; 
+let randomImg;
+
+//Imported Images 
+//
+//Help through https://p5js.org/reference/p5/loadImage/ Accessed: 2024-11-30
+function preload() {
+  jthBoyBack = loadImage("./assets/jthBoyBack.png"); 
+  hlkBoyFront = loadImage("./assets/hlkBoyFront.png");
+  jibsBoyFront = loadImage("./assets/jibsBoyFront.png");
+  jthGirlFront = loadImage("./assets/jthGirlFront.png");
+  eyBro = loadImage("./assets/eyBro.png");
+  freeze = loadImage("./assets/freeze.png");
+  gameBackground = loadImage("./assets/gameBackground.png");
+  winScreen = loadImage("./assets/winScreen.png");
+  lostScreen = loadImage("./assets/gameOver.png"); 
+  startImage = loadImage("./assets/startImage.png");
+  howTo = loadImage("./assets/howTo.png");
+  akademien = loadImage("./assets/akademien.png");
+  nmdFadders = loadImage("./assets/nmdFadders.png");
+  overlayImage = loadImage("./assets/overlay.png");
+  let img = [hlkBoyFront, jibsBoyFront, jthGirlFront];
+  randomImg = Math.floor(Math.random()*img.length);
+}
+window.preload = preload; 
+//help from p5 ended
+
+
 
 
 //variables
@@ -47,21 +68,44 @@ let characterY = 700;
 let overlayX = 0;
 let overlayY = 0;
 let overlaySpeed = 1;
-let enemyX = 0;
-let enemyY = 0;
-let state = "game";
-let enemies = [];
+let enemyX = 10;
+let enemyY = 10;
+let state = "start";
+let enemies;
+const baseEnemies = [];
 let enemyBullets = [];
 let maxBullets = 3;
 let score = 0;
 let lives = 3;
+
 //
 
 //
 function setup() {
   createCanvas(600, 800);
   let bullets = [];
-  let images = [hlkBoyFront, jibsBoyFront, jthGirlFront];
+
+  // create enemies 8x5 - 40 width 65 height.
+for (let x = 0; x < 8; x++) {
+  for (let y = 0; y < 5; y++) {
+    //positions for enemies
+    const enemyX = x * (40 + 10);
+    const enemyY = y * (65 + 10);
+    
+    const enemy = new Enemy(enemyX, enemyY, 40, 65);
+    baseEnemies.push(enemy); 
+  } 
+}  
+
+// for (let i = 0; i < 5; i++) {  //5 = rows
+//   for (let j = 0; j < 8; j++) { //8 = columns
+//     let enemyX = 0 + j * 60;
+//     let enemyY = 60 + i * 70;
+//     const enemy = new Enemy(enemyX, enemyY, 40, 65);
+//     baseEnemies.push(enemy); 
+//   }
+// }
+enemies = [...baseEnemies];
 }
 window.setup = setup;
 
@@ -81,21 +125,8 @@ const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
 //Create character
 const character = new Character(characterX, characterY, 50, 80);
 
-//Create lives/redbull
-const redBull = new RedBull(100, 100, 50, 80); 
 
-const enemy = new Enemy();
 
-//Create enemies 
-//Based on code from Edvin - remade
-for (let i = 0; i < 5; i++) {  //5 = rows
-  for (let j = 0; j < 8; j++) { //8 = columns
-    let enemyX = 0 + j * 60;
-    let enemyY = 60 + i * 70;
-    enemies.push(new Enemy(enemyX, enemyY, 40, 65, Math.random(image))); 
-  }
-}   
-//Citation ended
 
 
 
@@ -114,8 +145,7 @@ function startScreen() {
 //
 //
 function instructions1() {
-  //Markus dônk
-  background(255);
+  image(nmdFadders, -1, -63, 600, 882); 
 }
 
 function instructions2() {
@@ -170,8 +200,7 @@ function collisionCharacter(character, enemyBullet) {
 
 //Game screen
 function gameScreen() {
-  image(gameBackground, 0, 0, 600, 800);
-
+  image(gameBackground, -50, 0, 685, 800);
 
 
   let edgeReached = false;
@@ -233,7 +262,6 @@ function gameScreen() {
 
   if (edgeReached) {
     for (let enemy of enemies) {
-      enemy.speed *= -1;
       enemy.moveDown();
     }
   }
@@ -340,10 +368,27 @@ function win() {
 }
 
 function resetGame() {
-  score = 0;
   lives = 3;
   enemyX = 0;
   enemyY = 0;  
+  bullets = [];
+  
+  if(enemies.length === 0){
+    enemies = [...baseEnemies];
+  } else {
+    enemies = [];
+    for (let i = 0; i < 5; i++) {  //5 = rows
+      for (let j = 0; j < 8; j++) { //8 = columns
+        let enemyX = 0 + j * 60;
+        let enemyY = 60 + i * 70;
+    
+        const enemy = new Enemy(enemyX, enemyY, 40, 65);
+        enemies.push(enemy); 
+        // console.log(enemy);
+      }
+    }   
+    
+  }
 } 
 
 function draw() {
