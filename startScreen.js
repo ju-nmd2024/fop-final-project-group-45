@@ -1,16 +1,3 @@
-// let state = "start";
-
-// //gameScreen
-// function gameScreen() {
-//   background(0, 0, 0);
-// }
-
-// //instruction screen
-// function instructionsScreen() {
-//   background(255, 255, 255);
-// }
-
-//The buttons
 export default class Button {
   constructor(x, y, width, height, text, callback) {
     this.buttonX = x;
@@ -53,30 +40,3 @@ export default class Button {
     }
   }
 }
-
-// making the buttons switch to different screens
-// const startButton = new Button(175, 450, 250, 60, "Start the game", () => {
-// state = "game";
-// });
-// const instructionsButton = new Button(175, 550, 250, 60, "Instructions", () => {
-//   state = "instructions";
-// });
-
-// function draw() {
-//   if (state === "start") {
-//     background(255, 204, 204);
-//     startButton.draw();
-//     instructionsButton.draw();
-//   } else if (state === "game") {
-//     gameScreen();
-//   } else if (state === "instructions") {
-//     instructionsScreen();
-//   }
-// }
-
-// function mouseClicked() {
-//   if (state === "start") {
-//     startButton.mouseClicked();
-//     instructionsButton.mouseClicked();
-//   }
-// }

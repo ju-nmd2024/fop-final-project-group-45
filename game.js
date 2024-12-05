@@ -96,18 +96,11 @@ for (let x = 0; x < 8; x++) {
     baseEnemies.push(enemy); 
   } 
 }  
-
-// for (let i = 0; i < 5; i++) {  //5 = rows
-//   for (let j = 0; j < 8; j++) { //8 = columns
-//     let enemyX = 0 + j * 60;
-//     let enemyY = 60 + i * 70;
-//     const enemy = new Enemy(enemyX, enemyY, 40, 65);
-//     baseEnemies.push(enemy); 
-//   }
-// }
 enemies = [...baseEnemies];
 }
 window.setup = setup;
+
+
 
 //Start button, changes to game Screen
 const startButton = new Button(175, 300, 250, 60, "Start the game", () => {
@@ -174,6 +167,7 @@ function overlay() {
 
 //Creating hit boxes for enemies
 //Help from first year NMD student Tyra Edin
+//via https://www.youtube.com/watch?v=_MyPLZSGS3s
 //
 //
 function collisionEnemy(enemy, bullet) {
@@ -372,6 +366,7 @@ function resetGame() {
   enemyX = 0;
   enemyY = 0;  
   bullets = [];
+  enemyBullets= [];
   
   if(enemies.length === 0){
     enemies = [...baseEnemies];

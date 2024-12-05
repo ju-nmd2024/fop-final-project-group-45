@@ -1,5 +1,3 @@
-//character
-
 export default class Character {
   constructor(x, y, width, height) {
     this.x = x;
