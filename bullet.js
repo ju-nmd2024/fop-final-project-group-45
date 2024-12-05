@@ -1,12 +1,13 @@
 let bullets = [];
 
 export default class Bullet {
-  constructor(x, y, width, height) {
+  constructor(x, y, width, height, image) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.speed = 15;
+    this.image = image;
   }
 
   move() {
@@ -16,7 +17,7 @@ export default class Bullet {
 
   draw() {
     push();
-    image(eyBro, this.x, this.y, this.width, this.height);
+    image(this.image, this.x, this.y, this.width, this.height);
     pop();
   }
 

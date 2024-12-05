@@ -98,6 +98,8 @@ for (let x = 0; x < 8; x++) {
   } 
 }  
 enemies = [...baseEnemies];
+ character = new Character(characterX, characterY, jthBoyBack);
+
 }
 window.setup = setup;
 
@@ -117,7 +119,7 @@ const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
 });
 
 //Create character
-const character = new Character(characterX, characterY, jthBoyBack);
+let character;
 
 
 
@@ -430,14 +432,14 @@ function mouseClicked() {
 window.mouseClicked = mouseClicked;
 
 function createBullet(x, y) {
-  let bullet = new Bullet(x, y, 20, 32);
+  let bullet = new Bullet(x, y, 20, 32, eyBro);
   bullets.push(bullet);
 }
 
 //Generated via https://chatgpt.com/share/675038de-6e2c-8000-84d7-5465e33bc7e5 Accessed: 2024-12-04
 //Used ChatGPT to fix the issues in our code, added the suggested parameters
 function createEnemyBullet(x, y) {
-  let enemyBullet = new EnemyBullet(x, y, 25, 20);
+  let enemyBullet = new EnemyBullet(x, y, 25, 20, freeze);
   enemyBullets.push(enemyBullet);
 }
 //End of citation
