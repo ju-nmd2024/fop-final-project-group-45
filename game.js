@@ -12,6 +12,8 @@
 //Help through https://p5js.org/reference/p5/loadImage/ Accessed: 2024-11-30
 function preload() {
   jthBoyBack = loadImage("/assets/jthBoyBack.png"); 
+  hlkBoyFront = loadImage("/assets/hlkBoyFront.png");
+  jibsBoyFront = loadImage("/assets/jibsBoyFront.png");
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
   eyBro = loadImage("/assets/eyBro.png");
   redBullImage = loadImage("/assets/redBullImage.png");
@@ -19,7 +21,7 @@ function preload() {
   gameBackground = loadImage("/assets/gameBackground.png");
   winScreen = loadImage("/assets/winScreen.png");
   lostScreen = loadImage("/assets/gameOver.png"); 
-  start = loadImage("/assets/start.png");
+  startImage = loadImage("/assets/startImage.png");
   howTo = loadImage("/assets/howTo.png");
   akademien = loadImage("/assets/akademien.png");
   overlayImage = loadImage("/assets/overlay.png");
@@ -40,19 +42,16 @@ import RedBull from "./redBull.js";
 //variables
 //
 //
-let characterX = 300;
+let characterX = 300; 
 let characterY = 700;
 let overlayX = 0;
 let overlayY = 0;
 let overlaySpeed = 1;
-let enemyX = 10;
-let enemyY = 10;
-let state = "start";
+let enemyX = 0;
+let enemyY = 0;
+let state = "game";
 let enemies = [];
 let enemyBullets = [];
-let redBulls = [];
-let rows = 5;
-let columns = 8;
 let maxBullets = 3;
 let score = 0;
 let lives = 3;
@@ -62,6 +61,7 @@ let lives = 3;
 function setup() {
   createCanvas(600, 800);
   let bullets = [];
+  let images = [hlkBoyFront, jibsBoyFront, jthGirlFront];
 }
 window.setup = setup;
 
@@ -84,17 +84,19 @@ const character = new Character(characterX, characterY, 50, 80);
 //Create lives/redbull
 const redBull = new RedBull(100, 100, 50, 80); 
 
+const enemy = new Enemy();
+
 //Create enemies 
-//help from previous programmer Edvin Eminovic
-const enemy = new Enemy(10, 10, 30, 40);
-for (let i = 0; i < rows; i++) {
-  for (let j = 0; j < columns; j++) {
-    let x = 0 + j * 60;
-    let y = 60 + i * 70;
-    enemies.push(new Enemy(x, y, 40, 65));
+//Based on code from Edvin - remade
+for (let i = 0; i < 5; i++) {  //5 = rows
+  for (let j = 0; j < 8; j++) { //8 = columns
+    let enemyX = 0 + j * 60;
+    let enemyY = 60 + i * 70;
+    enemies.push(new Enemy(enemyX, enemyY, 40, 65, Math.random(image))); 
   }
-}
-//Help from Edvin Eminovic ended
+}   
+//Citation ended
+
 
 
 
@@ -102,7 +104,7 @@ for (let i = 0; i < rows; i++) {
 //
 //
 function startScreen() {
-  image(start, 0, 0, 600, 800);
+  image(startImage, 0, 0, 600, 800);
   startButton.draw();
   startButton.hitTest(175, 300);
 }
@@ -178,11 +180,8 @@ function gameScreen() {
   for (let i = 0; i < enemies.length; i++) {
     let enemy = enemies[i];
 
-
-
     enemy.draw();
     enemy.move();
-
 
 
     //check if enemy reached edge of canvas
@@ -217,9 +216,9 @@ function gameScreen() {
       }
     }
   }
+ 
 
-
-
+  //Help from second year NMD student Erik Sandquist
   for (let j = 0; j < enemyBullets.length; j++) {
     let enemyBullet = enemyBullets[j];
     if (collisionCharacter(character, enemyBullet)) {
@@ -227,12 +226,6 @@ function gameScreen() {
 
       enemyBullets.splice(j, 1); //splice removes bullet
       lives = lives - 1;
-      // character.splice(i, 1); //splice removes the character
-
-      //Help from second year NMD student Erik Sandquist
-      // i--; //make the enemies not glitch
-      // break;
-      // //Help from student Erik Sandquist ended
     }
   }
 
@@ -298,6 +291,9 @@ function gameScreen() {
     state = "win";
   }
 
+  // if (score === 400) {
+  //   text("level 2", 500, 35);
+  // }
   
   //Scores
   push();
@@ -307,12 +303,17 @@ function gameScreen() {
   text(`SCORE: ${score}`, 25, 35);
   //End of help from Erik Sandquist
   pop();
+
+  //Lives
+  push();
+  textSize(20);
+  fill(255);
+  //Help from second year NMD student Erik Sandquist
+  text(`LIVES: ${lives}`, 500, 35);
+  //End of help from Erik Sandquist
+  pop();
 }
 
-//Instruction screen
-function instructionScreen() {
-  image(instructions, -20, 0, 634, 820);
-}
 
 //Game over screen
 function gameOver() {
@@ -338,19 +339,12 @@ function win() {
   pop();
 }
 
-// function resetGame() {
-//   let score = 0;
-//   let lives = 3;
-//   enemyX = 10;
-//   enemyY = 10; 
-//   for (let i = 0; i < rows; i++) {
-//     for (let j = 0; j < columns; j++) {
-//       let x = 0 + j * 60;
-//       let y = 60 + i * 70;
-//       enemies.push(new Enemy(x, y, 40, 65));
-//     }
-//   }
-// }
+function resetGame() {
+  score = 0;
+  lives = 3;
+  enemyX = 0;
+  enemyY = 0;  
+} 
 
 function draw() {
   if (state === "start") {

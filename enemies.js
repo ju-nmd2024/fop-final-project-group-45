@@ -3,17 +3,18 @@
 // }
 
 export default class Enemy {
-  constructor(x, y, width, height) {
+  constructor(x, y, width, height, image) {
     this.enemyX = x;
     this.enemyY = y;
     this.width = width;
     this.height = height;
     this.speed = 0.5;
+    this.image = image;
   }
 
   draw() {
     push();
-    image(jthGirlFront, this.enemyX, this.enemyY, this.width, this.height);
+    image(this.image, this.enemyX, this.enemyY, this.width, this.height);
     pop();
   }
 
