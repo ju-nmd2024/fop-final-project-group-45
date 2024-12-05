@@ -7,10 +7,11 @@
   NMD24
 */
 
-//Imported Images
+//Imported Images 
+//
 //Help through https://p5js.org/reference/p5/loadImage/ Accessed: 2024-11-30
 function preload() {
-  jthBoyBack = loadImage("/assets/jthBoyBack.png");
+  jthBoyBack = loadImage("/assets/jthBoyBack.png"); 
   jthGirlFront = loadImage("/assets/jthGirlFront.png");
   eyBro = loadImage("/assets/eyBro.png");
   redBullImage = loadImage("/assets/redBullImage.png");
@@ -26,6 +27,7 @@ function preload() {
 //help from p5 ended
 
 //Imported files
+//
 import Button from "./startScreen.js";
 import Character from "./character.js";
 import Bullet from "./bullet.js";
@@ -33,6 +35,10 @@ import EnemyBullet from "./bulletEnemy.js";
 import Enemy from "./enemies.js";
 import RedBull from "./redBull.js";
 
+
+//variables
+//
+//
 let characterX = 300;
 let characterY = 700;
 let overlayX = 0;
@@ -44,16 +50,18 @@ let state = "start";
 let enemies = [];
 let enemyBullets = [];
 let redBulls = [];
+let img = [jthGirlFront, ];
 let rows = 5;
 let columns = 8;
 let maxBullets = 3;
 let score = 0;
 let lives = 3;
+//
 
+//
 function setup() {
   createCanvas(600, 800);
   let bullets = [];
-  
 }
 
 //Start button, changes to game Screen
@@ -69,17 +77,13 @@ const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
   state = "start";
 });
 
-//Initialize character
+//Create character
 const character = new Character(characterX, characterY, 50, 80);
 
-const redBull = new RedBull(100, 100, 50, 80);
+//Create lives/redbull
+const redBull = new RedBull(100, 100, 50, 80); 
 
-
-
-
-
-
-//initialize enemies
+//Create enemies
 //help from previous programmer Edvin Eminovic
 const enemy = new Enemy(10, 10, 30, 40);
 for (let i = 0; i < rows; i++) {
@@ -91,13 +95,21 @@ for (let i = 0; i < rows; i++) {
 }
 //Help from Edvin Eminovic ended
 
+
+
 // Start screen
+//
+//
 function startScreen() {
   image(start, 0, 0, 600, 800);
   startButton.draw();
   startButton.hitTest(175, 300);
 }
 
+
+//image screens
+//
+//
 function instructions1() {
   //Markus dônk
   background(255);
@@ -113,6 +125,7 @@ function instructions3() {
   image(howTo, 0, 0, 605, 810);
 }
 
+//overlay for gameplay
 function overlay() {
   image(overlayImage, overlayX - 100, overlayY - 100, 900, 1200);
   overlayX = overlayX + overlaySpeed;
@@ -122,10 +135,14 @@ function overlay() {
     overlaySpeed = overlaySpeed * -1;
   }
 }
+//
+//
+//
 
-
-//Showing when an enemy will dissapear
+//Creating hit boxes for enemies
 //Help from first year NMD student Tyra Edin
+//
+//
 function collisionEnemy(enemy, bullet) {
   return ( 
     bullet.x < enemy.enemyX + enemy.width &&
@@ -135,6 +152,7 @@ function collisionEnemy(enemy, bullet) {
   );
 }
 
+//Creating hit boxes for enemies
 function collisionCharacter(character, enemyBullet) {
   return (
     enemyBullet.x < character.x + character.width &&
@@ -143,11 +161,15 @@ function collisionCharacter(character, enemyBullet) {
     enemyBullet.y + enemyBullet.height > character.y
   );
 }
+//
+//
 //Help from student, ended.
 
 //Game screen
 function gameScreen() {
   image(gameBackground, 0, 0, 600, 800);
+
+
 
   let edgeReached = false;
 
@@ -155,18 +177,26 @@ function gameScreen() {
   for (let i = 0; i < enemies.length; i++) {
     let enemy = enemies[i];
 
+
+
     enemy.draw();
     enemy.move();
+
+
 
     //check if enemy reached edge of canvas
     if (enemy.enemyX <= 0 || enemy.enemyX + enemy.width >= 600) {
       edgeReached = true;
     }
 
+
+
     //makes the enemies stop when they reach the bar
     if (enemy.enemyY >= 550) {
       state = "gameOver";
     }
+
+
 
     //Help from second year NMD student Erik Sandquist
     // Checking collsion between bullets and the enemies
@@ -187,6 +217,8 @@ function gameScreen() {
     }
   }
 
+
+
   for (let j = 0; j < enemyBullets.length; j++) {
     let enemyBullet = enemyBullets[j];
     if (collisionCharacter(character, enemyBullet)) {
@@ -203,6 +235,8 @@ function gameScreen() {
     }
   }
 
+
+
   if (edgeReached) {
     for (let enemy of enemies) {
       enemy.speed *= -1;
@@ -210,19 +244,25 @@ function gameScreen() {
     }
   }
 
+
+
   // Draw the character and make it move
   character.draw();
   character.move();
 
+
+
   // Draw the bullets
   for (let bullet of bullets) {
-    if (bullets.y <= 0) {
-      bullet.splice();
+    if (bullet.y <= 0) {
+      bullets.splice(bullet, 1);
     } else {
       bullet.move();
       bullet.draw();
     }
   }
+
+
   //Generated via https://chatgpt.com/share/675038de-6e2c-8000-84d7-5465e33bc7e5 Accessed: 2024-12-04
   //Used ChatGPT to fix the issues in our code
   for (let i = 0; i < enemyBullets.length; i++) {
@@ -235,6 +275,7 @@ function gameScreen() {
       enemyBullet.draw();
     }
   }
+
   if (Math.random() < 0.02) {
     let randomEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     createEnemyBullet(
@@ -244,8 +285,9 @@ function gameScreen() {
   }
   //End of citation
 
-  overlay();
 
+  //calling the lights function
+  overlay();
   
   if (lives === 0) {
     state = "gameOver";
@@ -254,6 +296,8 @@ function gameScreen() {
   if (enemies.length === 0) {
     state = "win";
   }
+
+  
   //Scores
   push();
   textSize(20);
@@ -293,11 +337,19 @@ function win() {
   pop();
 }
 
-function resetGame() {
-  let score = 0;
-  enemyX = 10;
-  enemyY = 10; 
-}
+// function resetGame() {
+//   let score = 0;
+//   let lives = 3;
+//   enemyX = 10;
+//   enemyY = 10; 
+//   for (let i = 0; i < rows; i++) {
+//     for (let j = 0; j < columns; j++) {
+//       let x = 0 + j * 60;
+//       let y = 60 + i * 70;
+//       enemies.push(new Enemy(x, y, 40, 65));
+//     }
+//   }
+// }
 
 function draw() {
   if (state === "start") {
@@ -309,7 +361,6 @@ function draw() {
   } else if (state === "howTo") {
     instructions3();
   } else if (state === "game") {
-    resetGame();
     gameScreen();
   } else if (state === "gameOver") {
     resetGame(); 
@@ -353,9 +404,10 @@ function createEnemyBullet(x, y) {
 }
 //End of citation
 
-function keyPressed() {
+function keyPressed() { 
   if (key === " " && bullets.length < maxBullets) {
     //checks if bullets are less than 3, the max length of array
     createBullet(character.x + 12, character.y - 15); //if less create more bullets
   }
 }
+  
