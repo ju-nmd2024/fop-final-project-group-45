@@ -24,6 +24,7 @@ function preload() {
   akademien = loadImage("/assets/akademien.png");
   overlayImage = loadImage("/assets/overlay.png");
 }
+window.preload = preload;
 //help from p5 ended
 
 //Imported files
@@ -50,7 +51,6 @@ let state = "start";
 let enemies = [];
 let enemyBullets = [];
 let redBulls = [];
-let img = [jthGirlFront, ];
 let rows = 5;
 let columns = 8;
 let maxBullets = 3;
@@ -63,6 +63,7 @@ function setup() {
   createCanvas(600, 800);
   let bullets = [];
 }
+window.setup = setup;
 
 //Start button, changes to game Screen
 const startButton = new Button(175, 300, 250, 60, "Start the game", () => {
@@ -83,7 +84,7 @@ const character = new Character(characterX, characterY, 50, 80);
 //Create lives/redbull
 const redBull = new RedBull(100, 100, 50, 80); 
 
-//Create enemies
+//Create enemies 
 //help from previous programmer Edvin Eminovic
 const enemy = new Enemy(10, 10, 30, 40);
 for (let i = 0; i < rows; i++) {
@@ -370,6 +371,7 @@ function draw() {
     win();
   }
 }
+window.draw = draw;
 
 function mouseClicked() {
   if (state === "start") {
@@ -390,6 +392,7 @@ function mouseClicked() {
     mainMenu.mouseClicked();
   }
 }
+window.mouseClicked = mouseClicked;
 
 function createBullet(x, y) {
   let bullet = new Bullet(x, y, 20, 32);
@@ -410,4 +413,4 @@ function keyPressed() {
     createBullet(character.x + 12, character.y - 15); //if less create more bullets
   }
 }
-  
+window.keyPressed = keyPressed;
