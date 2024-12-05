@@ -10,7 +10,7 @@ export default class Enemy {
     this.width = 40;
     this.height = 65;
     this.downStep = 65;
-    this.speed = 1;
+    this.speed = 0.5;
     this.image = image;
   }
 
@@ -26,6 +26,6 @@ export default class Enemy {
 
   moveDown() {
     this.enemyY += this.downStep;
-    this.speed *= -1;
+    this.speed *= -0.5;
   }
 }
