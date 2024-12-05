@@ -1,16 +1,22 @@
+// let jibsBoyFront;
+// function preload() {
+//   jibsBoyFront = loadImage("./assets/jibsBoyFront.png");
+// }
+
 export default class Enemy {
-  constructor(x, y, width, height) {
+  constructor(x, y, image) {
     this.enemyX = x;
     this.enemyY = y;
-    this.width = width;
-    this.height = height;
+    this.width = 40;
+    this.height = 65;
     this.downStep = 65;
     this.speed = 1;
+    this.image = image;
   }
 
   draw() {
     push();
-    image(jibsBoyFront, this.enemyX, this.enemyY, this.width, this.height);
+    image(this.image, this.enemyX, this.enemyY, this.width, this.height);
     pop();
   }
 

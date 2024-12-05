@@ -77,6 +77,7 @@ let enemyBullets = [];
 let maxBullets = 3;
 let score = 0;
 let lives = 3;
+let bullets = [];
 
 //
 
@@ -92,7 +93,7 @@ for (let x = 0; x < 8; x++) {
     const enemyX = x * (40 + 10);
     const enemyY = y * (65 + 10);
     
-    const enemy = new Enemy(enemyX, enemyY, 40, 65);
+    const enemy = new Enemy(enemyX, enemyY, jibsBoyFront);
     baseEnemies.push(enemy); 
   } 
 }  
@@ -108,15 +109,15 @@ const startButton = new Button(175, 300, 250, 60, "Start the game", () => {
 });
 //play again button, restarts the game
 const playAgain = new Button(175, 220, 250, 60, "Play Again", () => {
-  state = "game";
+  state = "game"; score = 0;
 });
 //menu button
 const mainMenu = new Button(175, 300, 250, 60, "Main Menu", () => {
-  state = "start";
+  state = "start";  score = 0;
 });
 
 //Create character
-const character = new Character(characterX, characterY, 50, 80);
+const character = new Character(characterX, characterY, jthBoyBack);
 
 
 
@@ -200,8 +201,8 @@ function gameScreen() {
   let edgeReached = false;
 
   //Loop through enemies and move them
-  for (let i = 0; i < enemies.length; i++) {
-    let enemy = enemies[i];
+  for (let x = 0; x < enemies.length; x++) {
+    let enemy = enemies[x];
 
     enemy.draw();
     enemy.move();
@@ -212,7 +213,7 @@ function gameScreen() {
       edgeReached = true;
     }
 
-
+ 
 
     //makes the enemies stop when they reach the bar
     if (enemy.enemyY >= 550) {
@@ -229,11 +230,11 @@ function gameScreen() {
         //Help from student Erik Sandquist ended
 
         bullets.splice(j, 1); //splice removes bullet
-        enemies.splice(i, 1); //splice removes the enemy
+        enemies.splice(x, 1); //splice removes the enemy
         score = score + 10;
 
         //Help from second year NMD student Erik Sandquist
-        i--;
+        x--;
         break; //make the enemies not glitch
         //Help from student Erik Sandquist ended
       }
@@ -313,10 +314,8 @@ function gameScreen() {
     state = "win";
   }
 
-  // if (score === 400) {
-  //   text("level 2", 500, 35);
-  // }
-  
+ 
+
   //Scores
   push();
   textSize(20);
@@ -325,6 +324,8 @@ function gameScreen() {
   text(`SCORE: ${score}`, 25, 35);
   //End of help from Erik Sandquist
   pop();
+
+
 
   //Lives
   push();
@@ -347,14 +348,14 @@ function gameOver() {
   fill(255);
   text(`SCORE: ${score}`, 240, 55);
   pop();
-}
+} 
 
 //Win screen
 function win() {
   image(winScreen, 0, 0, 600, 800);
   playAgain.draw();
   mainMenu.draw();
-  push();
+  push();  
   textSize(25);
   fill(255);
   text(`SCORE: ${score}`, 240, 55);
@@ -377,7 +378,7 @@ function resetGame() {
         let enemyX = 0 + j * 60;
         let enemyY = 60 + i * 70;
     
-        const enemy = new Enemy(enemyX, enemyY, 40, 65);
+        const enemy = new Enemy(enemyX, enemyY, jibsBoyFront);
         enemies.push(enemy); 
         // console.log(enemy);
       }

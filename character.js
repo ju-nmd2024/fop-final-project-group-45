@@ -1,14 +1,15 @@
 export default class Character {
-  constructor(x, y, width, height) {
+  constructor(x, y, image) {
     this.x = x;
     this.y = y;
-    this.width = width;
-    this.height = height;
+    this.width = 50;
+    this.height = 80;
+    this.image = image;
   }
 
   draw() {
     push();
-    image(jthBoyBack, this.x, this.y, this.width, this.height);
+    image(this.image, this.x, this.y, this.width, this.height);
     pop();
   }
 
